@@ -1,13 +1,13 @@
 # Image Diff Tool
 
-Diff tool for images to use in a Git based png-review workflow.
+Diff tool for images to use in a Git-based PNG review workflow.
 
 ## Purpose
 
-I use this to diff screenshots before committing them to the Git repo.
-It is on Github as a backup for me and because others might be useful.
+I use this tool to diff screenshots before committing them to the Git repo.
+It is available on GitHub as a backup for me and because it might be useful to others.
 
-This is not a professional tool or claims to be bugfree. Use it on your own risk.
+This is not a professional tool or claims to be bug-free. Use it at your own risk.
 
 ## Requirements
 
@@ -19,10 +19,10 @@ This is not a professional tool or claims to be bugfree. Use it on your own risk
 
 You need to compile it from source.
 
-This is how I build it:
+Here's how I build it:
 ```
 mkdir bld && cd bld
-cmake -GNinja  -DCMAKE_INSTALL_PREFIX=$HOME ..
+cmake -GNinja -DCMAKE_INSTALL_PREFIX=$HOME ..
 cmake --build .
 cmake --install .
 ```
@@ -31,13 +31,13 @@ Ensure ~/bin is on your PATH so that the tool can be found.
 
 ## Usage
 
-In any Git repo with modified .png files you can type `git png-review` and it will fire up this GUI,
+In any Git repo with modified .png files, you can type `git png-review` and it will launch this GUI,
 which shows the diff between old and new screenshots.
 
 ![Screenshot](screenshots/screenshot.png)
 
 * Click 'Accept' to accept the change. This will call `git add <file>` for you and open the next changed image.
-* Click 'Reject' to undo the change. This will call `get restore <file>` for you and open the next changed image.
+* Click 'Reject' to undo the change. This will call `git restore <file>` for you and open the next changed image.
 * Click 'Skip' to ignore the change. It will open the next image.
 * Click 'Abort' to abort the review process.
 
