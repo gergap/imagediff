@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QMenuBar>
 #include <QPushButton>
+#include <QShortcut>
 #include <QSlider>
 #include <QSpinBox>
 #include <QStatusBar>
@@ -89,6 +90,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(btnReject, &QPushButton::clicked, this, &MainWindow::onReject);
     connect(btnSkip, &QPushButton::clicked, this, &MainWindow::onSkip);
     connect(btnAbort, &QPushButton::clicked, this, &MainWindow::onAbort);
+
+    // --- Shortcuts for review actions
+    new QShortcut(QKeySequence(Qt::Key_Return), this, SLOT(onAccept()));
+    new QShortcut(QKeySequence(Qt::Key_Enter), this, SLOT(onAccept()));
+    new QShortcut(QKeySequence(Qt::Key_A), this, SLOT(onAccept()));
+    new QShortcut(QKeySequence(Qt::Key_Escape), this, SLOT(onAbort()));
+    new QShortcut(QKeySequence(Qt::Key_R), this, SLOT(onReject()));
+    new QShortcut(QKeySequence(Qt::Key_S), this, SLOT(onSkip()));
 
     setWindowTitle("ImageDiff");
     resize(1200, 800);
