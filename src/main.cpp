@@ -40,6 +40,7 @@ int main(int argc, char** argv)
 
         cmp->loadLeft(left);
         cmp->loadRight(right);
+        w.enableReview();
 
         // MainWindow anzeigen
         w.show();

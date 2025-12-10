@@ -5,6 +5,7 @@
 class ImageCompareWidget;
 class QLabel;
 class QSlider;
+class QPushButton;
 
 class MainWindow : public QMainWindow
 {
@@ -12,6 +13,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
+    void enableReview();
 private slots:
     void openLeft();
     void openRight();
@@ -28,6 +30,10 @@ private:
     QLabel *m_status;
     QSlider *m_thresholdSlider;
     QSlider *m_sensitivitySlider;
+    QPushButton *m_btnAccept;
+    QPushButton *m_btnReject;
+    QPushButton *m_btnSkip;
+    QPushButton *m_btnAbort;
 
     void createActions();
 };

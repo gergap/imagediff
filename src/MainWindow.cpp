@@ -29,22 +29,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     centralLayout->addWidget(m_cmp);
 
     // --- Button bar for review exit-codes (Accept/Reject/Skip/Abort)
-    auto *btnAccept = new QPushButton("Accept");
-    auto *btnReject = new QPushButton("Reject");
-    auto *btnSkip = new QPushButton("Skip");
-    auto *btnAbort = new QPushButton("Abort");
+    m_btnAccept = new QPushButton("Accept");
+    m_btnReject = new QPushButton("Reject");
+    m_btnSkip = new QPushButton("Skip");
+    m_btnAbort = new QPushButton("Abort");
 
-    btnAccept->setStyleSheet("background:#4caf50; color:white;");
-    btnReject->setStyleSheet("background:#f44336; color:white;");
-    btnSkip->setStyleSheet("background:#9e9e9e; color:black;");
-    btnAbort->setStyleSheet("background:#ff9800; color:black;");
+    m_btnAccept->setStyleSheet("background:#4caf50; color:white;");
+    m_btnReject->setStyleSheet("background:#f44336; color:white;");
+    m_btnSkip->setStyleSheet("background:#9e9e9e; color:black;");
+    m_btnAbort->setStyleSheet("background:#ff9800; color:black;");
+    m_btnAccept->setVisible(false);
+    m_btnReject->setVisible(false);
+    m_btnSkip->setVisible(false);
+    m_btnAbort->setVisible(false);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch();
-    buttonLayout->addWidget(btnAccept);
-    buttonLayout->addWidget(btnReject);
-    buttonLayout->addWidget(btnSkip);
-    buttonLayout->addWidget(btnAbort);
+    buttonLayout->addWidget(m_btnAccept);
+    buttonLayout->addWidget(m_btnReject);
+    buttonLayout->addWidget(m_btnSkip);
+    buttonLayout->addWidget(m_btnAbort);
     buttonLayout->addStretch();
 
     centralLayout->addLayout(buttonLayout);
@@ -86,10 +90,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     });
 
     // --- Connect review buttons to exit-code slots
-    connect(btnAccept, &QPushButton::clicked, this, &MainWindow::onAccept);
-    connect(btnReject, &QPushButton::clicked, this, &MainWindow::onReject);
-    connect(btnSkip, &QPushButton::clicked, this, &MainWindow::onSkip);
-    connect(btnAbort, &QPushButton::clicked, this, &MainWindow::onAbort);
+    connect(m_btnAccept, &QPushButton::clicked, this, &MainWindow::onAccept);
+    connect(m_btnReject, &QPushButton::clicked, this, &MainWindow::onReject);
+    connect(m_btnSkip, &QPushButton::clicked, this, &MainWindow::onSkip);
+    connect(m_btnAbort, &QPushButton::clicked, this, &MainWindow::onAbort);
 
     // --- Shortcuts for review actions
     new QShortcut(QKeySequence(Qt::Key_Return), this, SLOT(onAccept()));
@@ -123,6 +127,14 @@ void MainWindow::createActions()
     QAction *quit = new QAction("&Quit", this);
     connect(quit, &QAction::triggered, this, &QWidget::close);
     file->addAction(quit);
+}
+
+void MainWindow::enableReview()
+{
+    m_btnAccept->setVisible(true);
+    m_btnReject->setVisible(true);
+    m_btnSkip->setVisible(true);
+    m_btnAbort->setVisible(true);
 }
 
 void MainWindow::openLeft()
