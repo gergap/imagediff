@@ -40,8 +40,9 @@ Then add this to your `~/.gitconfig`.
 In any Git repo with modified .png files you can type `git png-review` and it will fire up this GUI,
 which shows the diff between old and new screenshots.
 
-[Screenshot](screenshot.png)
+![Screenshot](screenshots/screenshot.png)
 
-* Click 'Accept' to accept the change. This will call `git add <file>` for you.
+* Click 'Accept' to accept the change. This will call `git add <file>` for you and open the next changed image.
+* Click 'Reject' to undo the change. This will call `get restore <file>` for you and open the next changed image.
 * Click 'Skip' to ignore the change. It will open the next image.
 * Click 'Abort' to abort the review process.
