@@ -1,0 +1,19 @@
+---
+Language:      Cpp
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 8
+UseTab: Never
+ColumnLimit: 120
+BreakBeforeBraces: Linux
+
+AccessModifierOffset: -4
+AllowShortFunctionsOnASingleLine: Inline
+# Derive pointer alignment from style found in file. (clang-format 3.7)
+DerivePointerAlignment: True
+# Use the only sensible way as fallback.
+PointerAlignment: Right
+# Indent preprocessor statements (clang-format 6)
+IndentPPDirectives: AfterHash
+# preproccessor indent with (clang-format 13)
+PPIndentWidth: 2
