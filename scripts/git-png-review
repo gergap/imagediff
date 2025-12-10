@@ -50,4 +50,4 @@ for f in $files; do
     esac
 done
 
-echo "Done. Use `git commit` to commit the tracked changes."
+echo "Done. Use 'git commit' to commit the tracked changes."
