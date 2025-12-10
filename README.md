@@ -29,12 +29,6 @@ cmake --install .
 
 Ensure ~/bin is on your PATH so that the tool can be found.
 
-Then add this to your `~/.gitconfig`.
-
-```
-[alias]
-    png-review = "!sh ~/bin/git-png-review"
-```
 ## Usage
 
 In any Git repo with modified .png files you can type `git png-review` and it will fire up this GUI,
