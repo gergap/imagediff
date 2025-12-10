@@ -56,10 +56,20 @@ ImageCompareWidget::ImageCompareWidget(QWidget *parent) : QWidget(parent)
     m_splitter->addWidget(leftBox);
     m_splitter->addWidget(rightBox);
 
-    // Bottom: diff
+    // Bottom: diff with label
+    QLabel *diffLabel = new QLabel("Image Differences");
+    diffLabel->setStyleSheet("font-weight: bold;");
+
+    QWidget *diffBox = new QWidget;
+    QVBoxLayout *diffLayout = new QVBoxLayout(diffBox);
+    diffLayout->setContentsMargins(0, 0, 0, 0);
+    diffLayout->addWidget(diffLabel);
+    diffLayout->addWidget(m_diffScroll);
+
+    // Main vertical splitter: top (left/right) and bottom (diff)
     QSplitter *s = new QSplitter(Qt::Vertical);
     s->addWidget(m_splitter);
-    s->addWidget(m_diffScroll);
+    s->addWidget(diffBox);
 
     QVBoxLayout *v = new QVBoxLayout();
     v->addWidget(s);
