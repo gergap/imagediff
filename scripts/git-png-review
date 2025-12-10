@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# Absolute path to script dir
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Find repo root
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+echo $PWD
+
+files=$(git diff --name-only HEAD -- "*.png")
+
+if [ -z "$files" ]; then
+    echo "No changed PNG files found."
+    exit 0
+fi
+
+for f in $files; do
+    echo "Review: $f"
+
+    # create temp file of last version of this file
+    tmp=$(mktemp --suffix=.png)
+    git show HEAD:"$f" > "$tmp" 2>/dev/null || convert xc:none "$tmp"
+
+    # show in our ImageDiff tool
+    "$SCRIPT_DIR/ImageDiff" --review --left "$tmp" --right "$f"
+    result=$?
+
+    # process the results
+    case $result in
+        0)
+            echo "✓ ACCEPTED: $f"
+            git add "$f"
+            ;;
+        1)
+            echo "✗ REJECTED: $f"
+            git checkout -- "$f"
+            ;;
+        2)
+            echo "→ SKIPPED: $f"
+            ;;
+        3)
+            echo "⚠️ ABORT"
+            exit 3
+            ;;
+        *)
+            echo "Unknown Exit-Code: $result"
+            exit 4
+            ;;
+    esac
+done
+
+echo "Done. Use `git commit` to commit the tracked changes."

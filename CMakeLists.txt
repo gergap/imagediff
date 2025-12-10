@@ -22,3 +22,4 @@ target_include_directories(ImageDiff PRIVATE src)
 target_link_libraries(ImageDiff PRIVATE Qt6::Widgets Qt6::Gui Qt6::Core)
 
 install(TARGETS ImageDiff DESTINATION bin)
+install(FILES scripts/git-png-review DESTINATION bin)
