@@ -10,16 +10,19 @@
 #include <QLabel>
 #include <QMenuBar>
 #include <QPushButton>
+#include <QSettings>
 #include <QShortcut>
 #include <QSlider>
 #include <QSpinBox>
 #include <QStatusBar>
+#include <QTimer>
 #include <QToolBar>
 
 #include "ImageCompareWidget.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
+    setObjectName("MainWindow");
     // --- Central widget: wrap your ImageCompareWidget so we can add the button bar below it
     QWidget *central = new QWidget(this);
     QVBoxLayout *centralLayout = new QVBoxLayout;
@@ -80,6 +83,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     controls->setLayout(fl);
     QDockWidget *dock = new QDockWidget("Controls", this);
+    dock->setObjectName("DockControls");
     dock->setWidget(controls);
     addDockWidget(Qt::RightDockWidgetArea, dock);
 
@@ -105,6 +109,23 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     setWindowTitle("ImageDiff");
     resize(1200, 800);
+
+    QTimer::singleShot(0, this, SLOT(loadWindowSettings()));
+}
+
+void MainWindow::loadWindowSettings()
+{
+    QSettings settings("GappyTec", "ImageDiff");
+    restoreGeometry(settings.value("MainWindow/geometry").toByteArray());
+    restoreState(settings.value("MainWindow/windowState").toByteArray());
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QSettings settings("GappyTec", "ImageDiff");
+    settings.setValue("MainWindow/geometry", saveGeometry());
+    settings.setValue("MainWindow/windowState", saveState());
+    QMainWindow::closeEvent(event);
 }
 
 void MainWindow::createActions()

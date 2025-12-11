@@ -25,6 +25,9 @@ private slots:
     void onSkip();
     void onAbort();
 
+    void loadWindowSettings();
+    void closeEvent(QCloseEvent *event);
+
 private:
     ImageCompareWidget *m_cmp;
     QLabel *m_status;
